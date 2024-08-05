@@ -1,23 +1,28 @@
 package org.example;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class Basket {
-    String prod = " ";
-    String productInBasket;
-    public void products(){
-        while (prod != "Х"){
-            Scanner in = new Scanner(System.in);
-            System.out.println("Введите название продукта. Чтобы закончить ввод продуктов нажмите Х");
-            prod = in.nextLine();
-            productInBasket += prod;
+
+public class Basket{
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        ArrayList<String> list = new ArrayList<>();
+        System.out.println("Задание 4: Корзина с продуктами");
+        System.out.println(" Введите название продуктов. Для завершения ввода нажмите 'x'(На английской раскладке)");
+
+        while (true){
+            String input = in.nextLine();
+            if (input.equalsIgnoreCase("x")){
+                break;
+            }
+            list.add(input);
         }
-        System.out.println();
-    }
-    public static void main(String[] arg) {
-        Basket basket = new Basket();
-        basket.products();
-
-
+        for (int i = 0; i<list.size(); i++){
+            System.out.println(list.get(i));
+        }
     }
 }
-
