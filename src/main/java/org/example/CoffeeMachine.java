@@ -3,9 +3,9 @@ package org.example;
 import java.util.Scanner;
 //Дописать код, отделить однотипные методы с помощью коментов, подкорректироватть код, добавить рецепт напитка с игредиентами
 //Разобраться с геттерами и сеттерами
-public class CoffeMachine {
+public class CoffeeMachine {
 
-    public boolean isOn = false;
+    public static boolean isOn = false;
 
     private int water;
 
@@ -19,13 +19,18 @@ public class CoffeMachine {
 
     public int maxValueMilk = 500;
 
-    public int countCup;
+    public int countCup = 0;
+
+    public int countCupToClean =15;
 
     public int countMilk;
 
     public int countWater;
 
     public int countCoffee;
+
+
+
 
 
     public void onOff() {
@@ -46,7 +51,7 @@ public class CoffeMachine {
     }
 
     public static void main(String[] args){
-        CoffeMachine machine = new CoffeMachine();
+        CoffeeMachine machine = new CoffeeMachine();
 
         while (true){
             machine.onOff();
@@ -60,10 +65,12 @@ public class CoffeMachine {
 
                 switch (num1) {
                     case 1:
+
                         machine.choiceDrinks();
                         break;
                     case 2:
                         machine.showWater();
+
                         break;
                     case 3:
                         machine.showCoffee();
@@ -77,6 +84,24 @@ public class CoffeMachine {
             }
         }
     }
+    public void choiceDrinks(){
+        System.out.println("Какой напиток приготовить? Введите номер");
+        System.out.println("1 - Эспрессо" + "\n" + "2 - Капучино" + "\n" + "3 - Латте ");
+        Scanner choice2 = new Scanner(System.in);
+        int drink =  choice2.nextInt();
+
+        switch (drink){
+            case 1:
+                cookCoffee(Drinks.ESPRESSO);
+                break;
+            case 2:
+                cookCoffee(Drinks.CAPPUCHINO);
+                break;
+            case 3:
+                cookCoffee(Drinks.LATTE);
+                break;
+        }
+    }
 
     public  void showWater(){
         System.out.println("Уровень воды в кофемашине " + water + "мл");
@@ -84,7 +109,7 @@ public class CoffeMachine {
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
         if (choiceInput == "Y"){
-            setWater();
+            addWater();
         }else {
             //Дописать переход назад
         }
@@ -96,7 +121,7 @@ public class CoffeMachine {
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
         if (choiceInput == "Y"){
-            setMilk();
+            addMilk();
         }else {
             //Дописать переход назад
         }
@@ -108,111 +133,89 @@ public class CoffeMachine {
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
         if (choiceInput == "Y"){
-            setCoffee();
+            addCoffee();
         }else {
             //Дописать переход назад
         }
     }
+    public int getCoffee() {
+        return coffee;
+    }
 
-    public void setWater(){
-        System.out.println("Сколько воды нужно добавить? Введите количество");
-        Scanner pourTheWater = new Scanner(System.in);
-        countWater = pourTheWater.nextInt();
-        water += countWater;
+    public int getMilk() {
+        return milk;
+    }
+    public int getWater(){
+        return water;
+    }
+
+
+    public void setWater(int water){
         if (water <= maxValueWater){
+            this.water = water;
             System.out.println("Вода добавлена, можно приготовить кофе");
         }else {
             System.out.println("Вы собираетесь налить слишком много воды. Введите меньше");
-            water -= countWater;
             //Добавить цикл, чтобы ещё раз ввести значения
         }
     }
 
-    public void setMilk(){
-        System.out.println("Сколько молока нужно добавить? Введите количество");
-        Scanner pourTheMilk = new Scanner(System.in);
-        countMilk = pourTheMilk.nextInt();
-        milk += countMilk;
+    public void setMilk(int milk){
         if (milk <= maxValueMilk){
+            this.milk = milk;
             System.out.println("Молоко добавлено, можно приготовить кофе");
         }else {
             System.out.println("Вы собираетесь налить слишком много молока. Введите меньше");
-            milk -= countMilk;
             //Добавить цикл, чтобы ещё раз ввести значения
         }
     }
-
-    public void setCoffee(){
-        System.out.println("Сколько кофе нужно добавить? Введите количество");
-        Scanner pourTheCoffee = new Scanner(System.in);
-        countCoffee = pourTheCoffee.nextInt();
-        coffee += countCoffee;
+    public void setCoffee(int coffee){
         if (coffee <= maxValueCoffee){
+            this.coffee = coffee;
             System.out.println("Кофе добавлен, можно приготовить напиток");
         }else {
             System.out.println("Вы собираетесь насыпать слишком много кофе. Введите меньше");
-            coffee -= countCoffee;
             //Добавить цикл, чтобы ещё раз ввести значения
         }
     }
 
-    public void choiceDrinks(){
-        System.out.println("Какой напиток приготовить? Введите номер");
-        System.out.println("1 - Эспрессо" + "\n" + "2 - Капучино" + "\n" + "3 - Латте ");
-        Scanner choice2 = new Scanner(System.in);
-        int drink =  choice2.nextInt();
-
-        switch (drink){
-            case 1:
-                cookEspresso();
-                break;
-            case 2:
-                cookCapuchino();
-                break;
-            case 3:
-                cookLatte();
-                break;
-        }
+    public void addWater(){
+        System.out.println("Сколько воды нужно добавить? Введите количество");
+        Scanner pourTheWater = new Scanner(System.in);
+        countWater = pourTheWater.nextInt();
+        setWater(getWater() + countWater);
+    }
+    public void addMilk(){
+        System.out.println("Сколько молока нужно добавить? Введите количество");
+        Scanner pourTheMilk = new Scanner(System.in);
+        countMilk = pourTheMilk.nextInt();
+        setMilk(getMilk() + countMilk);
+    }
+    public void addCoffee(){
+        System.out.println("Сколько кофе нужно добавить? Введите количество");
+        Scanner pourTheCoffee = new Scanner(System.in);
+        countCoffee = pourTheCoffee.nextInt();
+        setCoffee(getCoffee() + countCoffee);
     }
 
-    public void cookEspresso(){
-        if (water>=150 || coffee>= 10){
-            water -=150;
-            coffee -=10;
+
+    public void cookCoffee(Drinks drink){
+
+        //Drinks dr = Drinks.valueOf(drinks);
+
+        if (water>= drink.getWaterDrink() || coffee>= drink.getCoffeeDrink() || milk >= drink.getMilkDrink()){
+            setWater(getWater() - drink.getWaterDrink()) ;
+            setCoffee(getCoffee() - drink.getCoffeeDrink());
+            setMilk(getCoffee() - drink.getMilkDrink());
             countCup ++;
         }else {
             System.out.println("Недостаточно ингредиентов. Проверьте уровень кофе и воды");
-            //Возврат назад добавить
-        }
-    }
-
-    public void cookCapuchino(){
-        if (water>=110 || coffee>= 8 || milk>=40){
-            water -=110;
-            coffee -=8;
-            milk -=40;
-            countCup ++;
-        }else {
-            System.out.println("Недостаточно ингредиентов. Проверьте уровень кофе, молока и воды");
-            //Возврат назад добавить
-        }
-    }
-
-    public void cookLatte(){
-        if (water>=80 || coffee>= 8 || milk>=70){
-            water -=80;
-            coffee -=8;
-            milk -=70;
-            countCup ++;
-        }else {
-            System.out.println("Недостаточно ингредиентов. Проверьте уровень кофе, молока и воды");
-            //Возврат назад добавить
         }
     }
 
     //Внедрить в главный метод очистку
     public void cleanMachine(){
-        if (countCup >= 15){
+        if (countCup >= countCupToClean){
             System.out.println("Кофемашина требует очистки. Очистка будет выполнена автоматически");
             water -= 100;
             countCup = 0;
@@ -223,6 +226,7 @@ public class CoffeMachine {
         System.out.println("Сколько порций?");
         Scanner portions = new Scanner(System.in);
         countCup = portions.nextInt();
+
         //Дописать и разобраться с каждым видом напитка
     }
 }
