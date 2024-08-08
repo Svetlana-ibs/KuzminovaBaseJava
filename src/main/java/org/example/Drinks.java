@@ -25,4 +25,8 @@ public enum Drinks {
     public int getCoffeeDrink(){
         return coffeeDrink;
     }
+
+    public String toString(){
+        return
+    }
 }

@@ -5,14 +5,14 @@ import java.util.Scanner;
 //Разобраться с геттерами и сеттерами
 public class CoffeeMachine {
 
-    public static boolean isOn = false;
+    public boolean isOn = false;
 
-    private int water;
+    private int water = 900;
 
-    private int milk;
+    private int milk = 400;
 
-    private int coffee;
-
+    private int coffee = 90;
+    //Сделать макс знач константами файнал
     public int maxValueWater = 1000;
 
     public int maxValueCoffee = 100;
@@ -30,25 +30,31 @@ public class CoffeeMachine {
     public int countCoffee;
 
 
-
-
-
     public void onOff() {
+        if (!isOn) {
+            System.out.println("Чтобы включить кофемашину нажмите '1'");
+            Scanner indikator = new Scanner(System.in);
+            String buttom = indikator.nextLine();
 
-        System.out.println("Чтобы включить кофемашину нажмите 'O', чтобы выключить нажмите 'X'");
-        Scanner indikator = new Scanner(System.in);
-        String buttom = indikator.nextLine();
+            if (buttom.equals("1")) {
+                isOn = true;
+            } else {
+                System.out.println("Неверный ввод, попробуйте снова (используйте заглавные английские буквы)");
+            }
+        } else {
+            System.out.println("Чтобы выключить кофемашину нажмите '0'");
+            Scanner indikator = new Scanner(System.in);
+            String buttom = indikator.nextLine();
 
-        if(buttom.equals("O")){
-            isOn = true;
-        }
-        else if (buttom.equals("X")){
-            isOn = false;
-        }
-        else {
-            System.out.println("Неверный ввод, попробуйте снова (используйте заглавные английские буквы)");
+            if (buttom.equals("0")) {
+                isOn = false;
+            } else {
+                System.out.println("Неверный ввод, попробуйте снова (используйте заглавные английские буквы)");
+            }
+
         }
     }
+
 
     public static void main(String[] args){
         CoffeeMachine machine = new CoffeeMachine();
@@ -65,12 +71,10 @@ public class CoffeeMachine {
 
                 switch (num1) {
                     case 1:
-
                         machine.choiceDrinks();
                         break;
                     case 2:
                         machine.showWater();
-
                         break;
                     case 3:
                         machine.showCoffee();
@@ -108,10 +112,8 @@ public class CoffeeMachine {
         System.out.println("Если хотите добавить воды, нажмите 'Y', выйти 'N'");
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
-        if (choiceInput == "Y"){
+        if (choiceInput.equals("Y")){
             addWater();
-        }else {
-            //Дописать переход назад
         }
     }
 
@@ -120,22 +122,17 @@ public class CoffeeMachine {
         System.out.println("Если хотите добавить молока, нажмите 'Y', выйти 'N'");
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
-        if (choiceInput == "Y"){
+        if (choiceInput.equals("Y")){
             addMilk();
-        }else {
-            //Дописать переход назад
         }
     }
-
     public void showCoffee(){
         System.out.println("Уровень кофе в кофемашине " + coffee + "гр");
         System.out.println("Если хотите добавить кофе, нажмите 'Y', выйти 'N'");
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
-        if (choiceInput == "Y"){
+        if (choiceInput.equals("Y")){
             addCoffee();
-        }else {
-            //Дописать переход назад
         }
     }
     public int getCoffee() {
@@ -150,66 +147,90 @@ public class CoffeeMachine {
     }
 
 
-    public void setWater(int water){
+    public boolean setWater(int water){
         if (water <= maxValueWater){
             this.water = water;
-            System.out.println("Вода добавлена, можно приготовить кофе");
+            return true;
         }else {
-            System.out.println("Вы собираетесь налить слишком много воды. Введите меньше");
-            //Добавить цикл, чтобы ещё раз ввести значения
+            return false;
         }
     }
 
-    public void setMilk(int milk){
+    public boolean setMilk(int milk){
         if (milk <= maxValueMilk){
             this.milk = milk;
-            System.out.println("Молоко добавлено, можно приготовить кофе");
+            return true;
         }else {
-            System.out.println("Вы собираетесь налить слишком много молока. Введите меньше");
-            //Добавить цикл, чтобы ещё раз ввести значения
+            return false;
         }
     }
-    public void setCoffee(int coffee){
+    public boolean setCoffee(int coffee){
         if (coffee <= maxValueCoffee){
             this.coffee = coffee;
-            System.out.println("Кофе добавлен, можно приготовить напиток");
+            return true;
         }else {
-            System.out.println("Вы собираетесь насыпать слишком много кофе. Введите меньше");
-            //Добавить цикл, чтобы ещё раз ввести значения
+            return false;
         }
     }
 
     public void addWater(){
         System.out.println("Сколько воды нужно добавить? Введите количество");
-        Scanner pourTheWater = new Scanner(System.in);
-        countWater = pourTheWater.nextInt();
-        setWater(getWater() + countWater);
+        while (true){
+            Scanner pourTheWater = new Scanner(System.in);
+            countWater = pourTheWater.nextInt();
+            setWater(getWater() + countWater);
+
+            if (setWater(getWater() + countWater)){
+                System.out.println("Вода добавлена, можно приготовить кофе");
+                break;
+            }else {
+                System.out.println("Вы собираетесь налить слишком много воды. Введите меньше");
+            }
+        }
+
+
     }
     public void addMilk(){
         System.out.println("Сколько молока нужно добавить? Введите количество");
-        Scanner pourTheMilk = new Scanner(System.in);
-        countMilk = pourTheMilk.nextInt();
-        setMilk(getMilk() + countMilk);
+        while (true) {
+            Scanner pourTheMilk = new Scanner(System.in);
+            countMilk = pourTheMilk.nextInt();
+            setMilk(getMilk() + countMilk);
+
+            if (setMilk(getMilk() + countMilk)) {
+                System.out.println("Молоко добавлено, можно приготовить кофе");
+                break;
+            } else {
+                System.out.println("Вы собираетесь налить слишком много молока. Введите меньше");
+            }
+
+        }
     }
     public void addCoffee(){
         System.out.println("Сколько кофе нужно добавить? Введите количество");
-        Scanner pourTheCoffee = new Scanner(System.in);
-        countCoffee = pourTheCoffee.nextInt();
-        setCoffee(getCoffee() + countCoffee);
+        while (true) {
+            Scanner pourTheCoffee = new Scanner(System.in);
+            countCoffee = pourTheCoffee.nextInt();
+            if (setCoffee(getCoffee() + countCoffee)) {
+                System.out.println("Кофе добавлен, можно приготовить напиток");
+                break;
+            } else {
+                System.out.println("Вы собираетесь насыпать слишком много кофе. Введите меньше");
+            }
+        }
     }
 
 
     public void cookCoffee(Drinks drink){
-
-        //Drinks dr = Drinks.valueOf(drinks);
-
-        if (water>= drink.getWaterDrink() || coffee>= drink.getCoffeeDrink() || milk >= drink.getMilkDrink()){
+        int portions = choiceCountCup();
+        if (water>= portions * drink.getWaterDrink() && coffee>= portions * drink.getCoffeeDrink() && milk >= portions * drink.getMilkDrink()){
             setWater(getWater() - drink.getWaterDrink()) ;
             setCoffee(getCoffee() - drink.getCoffeeDrink());
             setMilk(getCoffee() - drink.getMilkDrink());
             countCup ++;
+            System.out.println("Напиток успешно приготовлен!");
         }else {
-            System.out.println("Недостаточно ингредиентов. Проверьте уровень кофе и воды");
+            System.out.println("Недостаточно ингредиентов. Проверьте уровень кофе, молока и воды");
         }
     }
 
@@ -222,11 +243,11 @@ public class CoffeeMachine {
         }
     }
 
-    public void choiceCountCup(){
+    public int choiceCountCup(){
         System.out.println("Сколько порций?");
         Scanner portions = new Scanner(System.in);
         countCup = portions.nextInt();
-
+        return countCup;
         //Дописать и разобраться с каждым видом напитка
     }
 }
