@@ -4,6 +4,7 @@ public enum Drinks {
     LATTE(8,80,70),
     CAPPUCHINO(8,110, 40),
     ESPRESSO(10,150,0);
+
     public int waterDrink;
 
     public int milkDrink;
@@ -24,9 +25,5 @@ public enum Drinks {
     }
     public int getCoffeeDrink(){
         return coffeeDrink;
-    }
-
-    public String toString(){
-        return
     }
 }
