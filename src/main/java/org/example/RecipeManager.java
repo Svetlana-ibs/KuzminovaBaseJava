@@ -18,7 +18,7 @@ public class RecipeManager {
     }
 
     public void showRecipe(String name){
-        Drinks drinks = recipes.get(name);
+        Drinks drinks = getRecipe(name);
         if (drinks != null){
             System.out.println("Рецепт " + name + ":");
             System.out.println("Вода: " + drinks.getWaterDrink() + " мл");
