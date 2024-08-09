@@ -1,13 +1,16 @@
-package org.example;
+package org.example.Work5;
+
 import java.util.Scanner;
 
-
 public class Comparison {
+
     public int first_number;
+
     public int second_number;
 
     public  void thatIsBigger() {
 
+        System.out.println("Задание 2: Сравнение чисел и выведение большего");
         Scanner in = new Scanner(System.in);
         System.out.println("Введите первое число:");
         first_number = in.nextInt();
@@ -24,9 +27,9 @@ public class Comparison {
             System.out.println("Числа равны");
         }
     }
+
     public static void main(String[] arg){
         Comparison comparison = new Comparison();
         comparison.thatIsBigger();
     }
-
 }
