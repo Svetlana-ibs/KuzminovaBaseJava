@@ -37,25 +37,29 @@ public class CoffeeMachine {
     }
 
     public void onOff() {
-        if (!isOn) {
-            System.out.println("Включить машину? Нажмите '1'");
-            Scanner indikator = new Scanner(System.in);
-            String buttom = indikator.nextLine();
+        while (true){
+            if (!isOn) {
+                System.out.println("Включить машину? Нажмите '1'");
+                Scanner indikator = new Scanner(System.in);
+                String buttom = indikator.nextLine();
 
-            if (buttom.equals("1")) {
-                isOn = true;
+                if (buttom.equals("1")) {
+                    isOn = true;
+                    break;
+                } else {
+                    System.out.println("Неверный ввод, попробуйте снова");
+                }
             } else {
-                System.out.println("Неверный ввод, попробуйте снова (используйте заглавные английские буквы)");
-            }
-        } else {
-            System.out.println("Выключить машину? Нажмите '0'");
-            Scanner indikator = new Scanner(System.in);
-            String buttom = indikator.nextLine();
+                System.out.println("Выключить машину? Нажмите '0'");
+                Scanner indikator = new Scanner(System.in);
+                String buttom = indikator.nextLine();
 
-            if (buttom.equals("0")) {
-                isOn = false;
-            } else {
-                System.out.println("Неверный ввод, попробуйте снова");
+                if (buttom.equals("0")) {
+                    isOn = false;
+                    break;
+                } else {
+                    System.out.println("Неверный ввод, попробуйте снова");
+                }
             }
         }
     }
