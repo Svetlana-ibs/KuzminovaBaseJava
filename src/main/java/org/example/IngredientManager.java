@@ -39,7 +39,7 @@ public class IngredientManager {
 
     public void showWater() {
         System.out.println("Уровень воды в кофемашине " + water + "мл");
-        System.out.println("Если хотите добавить воды, нажмите 'Y', выйти 'N'");
+        System.out.println("Если хотите добавить воды, нажмите 'Y',чтобы выйти - нажмите любой символ");
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
         if (choiceInput.equals("Y")) {
@@ -49,7 +49,7 @@ public class IngredientManager {
 
     public void showMilk() {
         System.out.println("Уровень молока в кофемашине " + milk + "мл");
-        System.out.println("Если хотите добавить молока, нажмите 'Y', выйти 'N'");
+        System.out.println("Если хотите добавить молока, нажмите 'Y',чтобы выйти - нажмите любой символ");
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
         if (choiceInput.equals("Y")) {
@@ -59,7 +59,7 @@ public class IngredientManager {
 
     public void showCoffee() {
         System.out.println("Уровень кофе в кофемашине " + coffee + "гр");
-        System.out.println("Если хотите добавить кофе, нажмите 'Y', выйти 'N'");
+        System.out.println("Если хотите добавить кофе, нажмите 'Y',чтобы выйти - нажмите любой символ");
         Scanner input = new Scanner(System.in);
         String choiceInput = input.nextLine();
         if (choiceInput.equals("Y")) {
@@ -99,13 +99,17 @@ public class IngredientManager {
         while (true) {
             Scanner pourTheWater = new Scanner(System.in);
             int countWater = pourTheWater.nextInt();
-            setWater(getWater() + countWater);
 
-            if (setWater(getWater() + countWater)) {
-                System.out.println("Вода добавлена, можно приготовить кофе");
-                break;
+            if (countWater > 10){
+                if (setWater(getWater() + countWater)) {
+                    System.out.println("Вода добавлена");
+                    break;
+                } else {
+                    System.out.println("Вы собираетесь налить слишком много воды. Введите меньше");
+                }
             } else {
-                System.out.println("Вы собираетесь налить слишком много воды. Введите меньше");
+                System.out.println("Нельзя добавить такое количество воды." + "\n" + "Минимальное значение 10 мл, а максимальное количество воды может быть " + MAX_VALUE_WATER);
+                System.out.println("Вы собираетесь налить слишком мало воды. Введите больше");
             }
         }
     }
@@ -115,13 +119,17 @@ public class IngredientManager {
         while (true) {
             Scanner pourTheMilk = new Scanner(System.in);
             int countMilk = pourTheMilk.nextInt();
-            setMilk(getMilk() + countMilk);
 
-            if (setMilk(getMilk() + countMilk)) {
-                System.out.println("Молоко добавлено, можно приготовить кофе");
-                break;
+            if (countMilk > 10){
+                if (setMilk(getMilk() + countMilk)) {
+                    System.out.println("Молоко добавлено, можно приготовить кофе");
+                    break;
+                } else {
+                    System.out.println("Вы собираетесь налить слишком много молока. Введите меньше");
+                }
             } else {
-                System.out.println("Вы собираетесь налить слишком много молока. Введите меньше");
+                System.out.println("Нельзя добавить такое количество молока." + "\n" + "Минимальное значение 10 мл, а максимальное количество молока может быть " + MAX_VALUE_MILK);
+                System.out.println("Вы собираетесь налить слишком мало молока. Введите больше");
             }
         }
     }
@@ -131,11 +139,17 @@ public class IngredientManager {
         while (true) {
             Scanner pourTheCoffee = new Scanner(System.in);
             int countCoffee = pourTheCoffee.nextInt();
-            if (setCoffee(getCoffee() + countCoffee)) {
-                System.out.println("Кофе добавлен, можно приготовить напиток");
-                break;
+
+            if (countCoffee > 10){
+                if (setCoffee(getCoffee() + countCoffee)) {
+                    System.out.println("Кофе добавлен, можно приготовить напиток");
+                    break;
+                } else {
+                    System.out.println("Вы собираетесь насыпать слишком много кофе. Введите меньше");
+                }
             } else {
-                System.out.println("Вы собираетесь насыпать слишком много кофе. Введите меньше");
+                System.out.println("Нельзя добавить такое количество кофе." + "\n" + "Минимальное значение 10 гр., а максимальное количество кофе может быть " + MAX_VALUE_COFFEE);
+                System.out.println("Вы собираетесь насыпать слишком мало кофе. Введите больше");
             }
         }
     }

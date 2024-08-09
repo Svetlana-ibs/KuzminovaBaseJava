@@ -20,9 +20,11 @@ public enum Drinks {
     public int getWaterDrink() {
         return waterDrink;
     }
+
     public int getMilkDrink(){
         return milkDrink;
     }
+
     public int getCoffeeDrink(){
         return coffeeDrink;
     }
